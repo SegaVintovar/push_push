@@ -1,0 +1,17 @@
+alorithm ideas
+
+divide into steps
+1.sort the tmp_stack to understand the indexes of the iteams in sorted way
+2.push b all the numbers with indexes that " i % 2 != 0 " in acending(growing) order.
+3.get the biggest number to the top of the stack_a(via rotate) and push a. because we have b sorted.
+4.get third biggest value on top stack_a and push it b. rotate stack_a so the second biggest iteam is
+	on top and push a two times, because there were two sorted elements in row
+5. do the same with fifth element
+
+next stage
+i need stack_a also to be sorted in the growing way, 
+
+presort?
+look for sequences of numbers. how?
+account them
+
