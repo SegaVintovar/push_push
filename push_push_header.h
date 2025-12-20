@@ -8,8 +8,6 @@ typedef struct
 {
 	int *arr;
 	int size;
-
-	//size = stack_size(int *arr);
 } stack;
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);

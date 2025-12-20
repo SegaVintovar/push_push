@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/13 12:41:08 by vsudak        #+#    #+#                 */
-/*   Updated: 2025/12/19 19:42:24 by vsudak        ########   odam.nl         */
+/*   Updated: 2025/12/20 17:25:58 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	swap_b(int *stack_b)
 	tmp = stack_b[0];
 	stack_b[0] = stack_b[1];
 	stack_b[1] = tmp;
-	ft_print_dcs("sb\n");
+	printf("sb\n");
 }
 
 void	ss(int *stack_a, int *stack_b)
@@ -43,18 +43,18 @@ void	ss(int *stack_a, int *stack_b)
 	tmp = stack_b[0];
 	stack_b[0] = stack_b[1];
 	stack_b[1] = tmp;
-	ft_print_dcs("ss\n");
+	printf("ss\n");
 }
 //ft_shrink. removing the first element and move all the elemets 1 pos up
-void	ft_realloc(int *stack, int new_size)
-{
+// void	ft_realloc(int *stack, int new_size)
+// {
 	
-}
+// }
 
-void	stack_size(stack a_b.arr)
-{
-	a_b.size = sizeof(a_b.arr);
-}
+// void	stack_size(int *arr)
+// {
+// 	a_b.size = sizeof(a_b.arr);
+// }
 
 void	pa(int *stack_a, int size_a, int *stack_b, int size_b)
 {
@@ -62,22 +62,71 @@ void	pa(int *stack_a, int size_a, int *stack_b, int size_b)
 	int		*tmp_arr;
 	size_t	i;
 	size_t	p;
-	
+
 	i = 0;
-	p = 1;
-	tmp = stack_b[0];
-	//adjust stack b. shrink it
-	tmp_arr = malloc(sizeof(int) * (size_b - 1));
-	if (!tmp_arr)
-		return (NULL);
-	while(i < size_b - 1)
+	p = 0;
+	tmp = stack_b[p];
+	p++;
+	if (size_b > 1)
 	{
-		
+		tmp_arr = malloc(sizeof(int) * (size_b - 1));
+		while(i < size_b - 1)
+		{
+			tmp_arr[i] = stack_b[p];
+			i++;
+			p++;
+		}
 	}
-	//update stack_b size
-	//enlarge stack_a.
-	
-	//place the tmp into the first pos of the stack_a
+	else
+	{
+		//free(stack_b);
+	}
+	size_b--;
+	if (stack_b)
+		free(stack_b);
+	stack_b = tmp_arr;
+	tmp_arr = NULL;
+	tmp_arr = malloc((size_a + 1) * sizeof(int *));
+	p = 0;
+	tmp_arr[p] = tmp;
+	p++;
+	while (p <= size_a + 1)
+	{
+		tmp_arr[p] = stack_a[p + 1];
+		p++;
+	}
+	free(stack_a);
+	stack_a = tmp_arr;
+	tmp_arr = NULL;
+	size_a++;
+	printf("pa\n");
+}
+
+int main()
+{
+	int i = 0;
+	stack A;
+	int src_a[3] = {2, 3, 4};
+	int src_b[1] = {1};
+	stack B;
+	A.arr = malloc(sizeof(int) * 3);
+	while (i < 3)
+	{
+		A.arr[i] = src_a[i];
+		i++;
+	}
+	B.arr = malloc(1 * sizeof(int));
+	B.arr[0] = src_b[0];
+	A.size = 3;
+	B.size = 1;
+	pa(A.arr, A.size, B.arr, B.size);
+	i = 0;
+	while (i < 4)
+	{
+		printf("%d\n", A.arr[i++]);
+	}
+//	free(A.arr);
+//	free(B.arr);
 }
 
 void	rra(int *stack_a, int stack_size)
@@ -97,10 +146,10 @@ void	rra(int *stack_a, int stack_size)
 		b++;
 	}
 	
-	ft_printf("rra\n");
+	printf("rra\n");
 }
 
 void	pb(int *stack_a, int *stack_b)
 {
-	ft_print_dcs("pb\n");
+	printf("pb\n");
 }
