@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/13 12:49:47 by vsudak            #+#    #+#             */
-/*   Updated: 2025/12/19 11:38:17 by vs               ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: vs <vs@student.42.fr>                        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/12/13 12:49:47 by vsudak        #+#    #+#                 */
+/*   Updated: 2025/12/19 17:59:45 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,27 @@
 //what about to find a highest and lowest numbers
 //find siquenses that are ready to use
 
+static size_t	word_count(const char *s, char delimiter)
+{
+	size_t	i;
+	size_t	wc;
+
+	i = 0;
+	wc = 0;
+	while (s[i])
+	{
+		if (s[i] != delimiter && (i == 0 || s[i - 1] == delimiter))
+			wc++;
+		i++;
+	}
+	return (wc);
+}
+
 //use this to figure out indexes of sorted list
 void	sort(int *stack_a, int argc)
 {
 	int a = 0;
 	int	tmp;
-	size_t counter = 0;
 
 	while (a < argc - 1)
 	{
@@ -30,31 +45,51 @@ void	sort(int *stack_a, int argc)
 			stack_a[a + 1] = stack_a[a];
 			stack_a[a] = tmp;
 			a = 0;
-			counter++;
 		}
 		else
 		{
 			a++;
-			counter++;
 		}
 	}
-	printf("%lu\n", counter);
 }
+
+//1st option pass number to stack_b already sorted 
 
 int	main(int argc, char **argv)
 {
 	int i = 1;
 	int a = 0;
+	char **bad_input;
 	
 	stack stack_a;
-	stack_a.arr = malloc(sizeof(int *) * argc - 1);
-	while (i < argc)
+	if (argc == 1)
 	{
-		stack_a.arr[a] = ft_atoi(argv[i]);//make atoi check for validity(if there are only digits and whitespaces)
-		a++;
-		i++;
+		printf("Start the program one more time and enter valid \
+numbers to sort them\n");
+		return (0);
 	}
-	stack_a.size = a;
+	if(argc >= 2)
+	{
+		stack_a.arr = malloc(sizeof(int *) * argc - 1);
+		while (i < argc)
+		{
+			stack_a.arr[a] = ft_atoi(argv[i]);//make atoi check for validity(if there are only digits and whitespaces)
+			a++;
+			i++;
+		}
+		stack_a.size = a + 1;
+	}
+	// if (argc == 2)//not really needed
+	// {
+	// 	a = (int)word_count(argv[1], ' ');
+	// 	stack_a.arr = malloc(sizeof(int *) * a);
+	// 	bad_input = ft_split(argv[1], ' ');
+	// 	while (bad_input[i] != NULL)
+	// 	{
+	// 		stack_a.arr[i] = ft_atoi(bad_input[i]);//here is a segfault
+	// 		i++;
+	// 	}
+	// }	
 	//stack_a.arr[a] = 0;
 	sort(stack_a.arr, stack_a.size);
 	a = 0;
