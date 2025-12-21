@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct
 {
@@ -21,5 +22,6 @@ void	rra(int *stack_a, int argc);
 char	**ft_split(char const *s, char c);
 static size_t	word_count(const char *s, char delimiter);
 void	pa(int *stack_a, int size_a, int *stack_b, int size_b);
+
 
 #endif
