@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   operations_1.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/12/13 12:41:08 by vsudak        #+#    #+#                 */
-/*   Updated: 2025/12/20 17:25:58 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   operations_1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/13 12:41:08 by vsudak            #+#    #+#             */
+/*   Updated: 2025/12/21 11:42:30 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,13 @@ void	pa(int *stack_a, int size_a, int *stack_b, int size_b)
 			p++;
 		}
 	}
-	else
+	if (size_b = 1)
 	{
-		//free(stack_b);
+		stack_b = NULL;
+		size_b = 0;
 	}
+	else
+		return;
 	size_b--;
 	if (stack_b)
 		free(stack_b);
@@ -102,32 +105,32 @@ void	pa(int *stack_a, int size_a, int *stack_b, int size_b)
 	printf("pa\n");
 }
 
-int main()
-{
-	int i = 0;
-	stack A;
-	int src_a[3] = {2, 3, 4};
-	int src_b[1] = {1};
-	stack B;
-	A.arr = malloc(sizeof(int) * 3);
-	while (i < 3)
-	{
-		A.arr[i] = src_a[i];
-		i++;
-	}
-	B.arr = malloc(1 * sizeof(int));
-	B.arr[0] = src_b[0];
-	A.size = 3;
-	B.size = 1;
-	pa(A.arr, A.size, B.arr, B.size);
-	i = 0;
-	while (i < 4)
-	{
-		printf("%d\n", A.arr[i++]);
-	}
-//	free(A.arr);
-//	free(B.arr);
-}
+// int main()
+// {
+// 	int i = 0;
+// 	stack A;
+// 	int src_a[3] = {2, 3, 4};
+// 	int src_b[1] = {1};
+// 	stack B;
+// 	A.arr = malloc(sizeof(int) * 3);
+// 	while (i < 3)
+// 	{
+// 		A.arr[i] = src_a[i];
+// 		i++;
+// 	}
+// 	B.arr = malloc(1 * sizeof(int));
+// 	B.arr[0] = src_b[0];
+// 	A.size = 3;
+// 	B.size = 1;
+// 	pa(A.arr, A.size, B.arr, B.size);
+// 	i = 0;
+// 	while (i < 4)
+// 	{
+// 		printf("%d\n", A.arr[i++]);
+// 	}
+// //	free(A.arr);
+// //	free(B.arr);
+// }
 
 void	rra(int *stack_a, int stack_size)
 {

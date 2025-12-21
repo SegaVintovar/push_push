@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/12/13 12:49:47 by vsudak        #+#    #+#                 */
-/*   Updated: 2025/12/19 17:59:45 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/13 12:49:47 by vsudak            #+#    #+#             */
+/*   Updated: 2025/12/21 11:45:51 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int	main(int argc, char **argv)
 	char **bad_input;
 	
 	stack stack_a;
+	stack stack_b;
+	stack_b.arr = malloc(1);
+	stack_b.arr[0] = 1;
+	stack_b.size = 1;
 	if (argc == 1)
 	{
 		printf("Start the program one more time and enter valid \
@@ -77,7 +81,7 @@ numbers to sort them\n");
 			a++;
 			i++;
 		}
-		stack_a.size = a + 1;
+		stack_a.size = a;
 	}
 	// if (argc == 2)//not really needed
 	// {
@@ -91,7 +95,8 @@ numbers to sort them\n");
 	// 	}
 	// }	
 	//stack_a.arr[a] = 0;
-	sort(stack_a.arr, stack_a.size);
+	//sort(stack_a.arr, stack_a.size);
+	pa(stack_a.arr, stack_a.size, stack_b.arr, stack_b.size);
 	a = 0;
 	while (a < stack_a.size)
 	{
