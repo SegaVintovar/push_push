@@ -6,19 +6,19 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/13 12:41:08 by vsudak        #+#    #+#                 */
-/*   Updated: 2025/12/21 14:15:11 by vsudak        ########   odam.nl         */
+/*   Updated: 2025/12/22 16:37:13 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_push_header.h"
 
-void	swap_a(int *stack_a)
+void	swap_a(t_stack stack_a)
 {
 	int tmp;
 
-	tmp = stack_a[0];
-	stack_a[0] = stack_a[1];
-	stack_a[1] = tmp;
+	tmp = stack_a.arr[0];
+	stack_a.arr[0] = stack_a.arr[1];
+	stack_a.arr[1] = tmp;
 
 	printf("sa\n");
 }

@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/13 12:49:47 by vsudak        #+#    #+#                 */
-/*   Updated: 2025/12/21 19:32:49 by vsudak        ########   odam.nl         */
+/*   Updated: 2025/12/22 15:33:16 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int	main(int argc, char **argv)
 	int a = 0;
 	char **bad_input;
 	
-	stack stack_a;
-	stack stack_b;
+	t_stack stack_a;
+	t_stack stack_b;
 	stack_b.arr = NULL;
 	//stack_b.arr[0] = 1;
 	stack_b.size = 0;
