@@ -50,18 +50,39 @@ void	pb(t_stack a, t_stack b)
 	if (a.arr)
 	{
 		tmp = a.arr[0];
-		a.size -= 1;
-		tmp_arr = malloc(sizeof(int) * a.size);
+		
+		tmp_arr = malloc(sizeof(int) * ( a.size - 1));
 		while (i < a.size)
 		{
 			tmp_arr[i] = a.arr[i + 1];
 			i++;
 		}
-		free(a.arr);
+		a.size -= 1;
+		if (a.arr)
+			free(a.arr);
 		a.arr = tmp_arr;
 		tmp_arr = NULL;
-
+		tmp_arr = malloc((b.size + 1) * sizeof(int));
+		if (!tmp_arr)
+			exit(1);
+		i = 0;
+		//protect
+		tmp_arr[i] = tmp;
+		i++;
+		while (b.size >= i)
+		{
+			tmp_arr[i] = b.arr[i - 1];
+			i++;
+		}
+		if (b.arr)
+		{
+			free(b.arr);
+			b.arr = NULL;
+		}
+		b.arr = tmp_arr;
 	}
+	else
+		return;
 	printf("pb\n");
 }
 
@@ -101,9 +122,12 @@ t_stack	initialisation(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_stack	a;
+	t_stack	b;
 	size_t	i;
 
 	a.arr = NULL;
+	b.arr = NULL;
+	b.size = 0;
 	i = 1;
 	while (i < argc)
 	{
@@ -128,4 +152,19 @@ int main(int argc, char **argv)
 			printf("%d\n", a.arr[i]);
 			i++;
 		}
+		printf("Push and print both arr\n");
+		pb(a, b);
+		i = 0;
+		while (i < a.size)
+		{
+			printf("%d\n", a.arr[i]);
+			i++;
+		}
+		i = 0;
+		while (i < b.size)
+		{
+			printf("%d\n", b.arr[i]);
+			i++;
+		}
+
 }
