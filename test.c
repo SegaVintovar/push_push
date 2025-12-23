@@ -30,60 +30,101 @@ int is_unique(t_stack a)
 	while (i < a.size)
 	{
 		p = i + 1;
-		while (a.arr[i] != a.arr[p] && p < a.size)
+		while (a.arr[i] != a.arr[p] && p < a.size)// vagrind "invalid read"
 			p++;
-		if (a.arr[i] == a.arr[p])
+		if (a.arr[i] == a.arr[p])// valgrind "invalide read"
 			return (0);
 		i++;
 	}
 	return (1);
 }
 // get the top a element. shrink stack a, enlarge stack b by 1
-// 
-void	pb(t_stack a, t_stack b)
+
+// the passing value should have been taken before, so now we shrink src stack
+int	*push_from_src_stack(t_stack *src, int *tmp_arr)
 {
-	int		tmp;
-	int		*tmp_arr = NULL;
 	size_t	i;
 
 	i = 0;
-	if (a.arr)
+	tmp_arr = malloc(sizeof(int) * ( src->size - 1));
+	while (i < src->size - 1)
 	{
-		tmp = a.arr[0];
-		
-		tmp_arr = malloc(sizeof(int) * ( a.size - 1));
-		while (i < a.size)
-		{
-			tmp_arr[i] = a.arr[i + 1];
-			i++;
-		}
-		a.size -= 1;
-		if (a.arr)
-			free(a.arr);
-		a.arr = tmp_arr;
-		tmp_arr = NULL;
-		tmp_arr = malloc((b.size + 1) * sizeof(int));
-		if (!tmp_arr)
-			exit(1);
-		i = 0;
-		//protect
-		tmp_arr[i] = tmp;
+		tmp_arr[i] = src->arr[i + 1];
 		i++;
-		while (b.size >= i)
-		{
-			tmp_arr[i] = b.arr[i - 1];
-			i++;
-		}
-		if (b.arr)
-		{
-			free(b.arr);
-			b.arr = NULL;
-		}
-		b.arr = tmp_arr;
+	}
+	src->size--;
+	if (src->arr)
+		free(src->arr);
+	return (tmp_arr);
+}
+
+// takes the value that we are pushing, enlarging dest stack
+// 
+int	*enlarge_dest_stack(t_stack *dest, int tmp, int *tmp_arr)
+{
+	size_t	i;
+
+	i = 0;
+	tmp_arr = malloc((dest->size + 1) * sizeof(int));
+	if (!tmp_arr)
+		exit(1);
+	i = 0;
+	tmp_arr[i] = tmp;
+	i++;
+	while (dest->size >= i)
+	{
+		tmp_arr[i] = dest->arr[i - 1];
+		i++;
+	}
+	if (dest->arr)
+	{
+		free(dest->arr);
+		dest->arr = NULL;
+	}
+	dest->size++;
+	return (tmp_arr);
+}
+
+void	pb(t_stack *a, t_stack *b)
+{
+	int		tmp;
+	int		*tmp_arr;
+	size_t	i;
+
+	tmp_arr = NULL;
+	i = 0;
+	if (a->arr)
+	{
+		tmp = a->arr[0];
+		tmp_arr = push_from_src_stack(a, tmp_arr);
+		a->arr = tmp_arr;
+		tmp_arr = NULL;
+		b->arr = enlarge_dest_stack(b, tmp, tmp_arr);
 	}
 	else
 		return;
 	printf("pb\n");
+}
+
+void	pa(t_stack *a, t_stack *b)
+{
+	int		tmp;
+	int		*tmp_arr;
+	size_t	i;
+
+	tmp_arr = NULL;
+	i = 0;
+	if (a->arr)
+	{
+		tmp = b->arr[0];
+		tmp_arr = push_from_src_stack(b, tmp_arr);
+		a->arr = tmp_arr;
+		tmp_arr = NULL;
+		b->arr = enlarge_dest_stack(a, tmp, tmp_arr);
+	}
+	else
+		return;
+	printf("pa\n");
 }
 
 t_stack	initialisation(int argc, char **argv)
@@ -143,9 +184,8 @@ int main(int argc, char **argv)
 		a.arr[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
-	if (is_unique(a) == 0)
-		return (0);
-	else
+	if (is_unique(a) != 0)
+	{
 		i = 0;
 		while (i < a.size)
 		{
@@ -153,18 +193,26 @@ int main(int argc, char **argv)
 			i++;
 		}
 		printf("Push and print both arr\n");
-		pb(a, b);
+		pb(&a, &b);
+		pb(&a, &b);
+		pa(&a, &b);
 		i = 0;
-		while (i < a.size)
-		{
-			printf("%d\n", a.arr[i]);
-			i++;
-		}
+		printf("t_stack a\n");
+		// while (i < a.size)
+		// {
+		// 	printf("%d\n", a.arr[i]);
+		// 	i++;
+		// }
 		i = 0;
+		printf("t_stack b\n");
 		while (i < b.size)
 		{
 			printf("%d\n", b.arr[i]);
 			i++;
 		}
-
+	}
+	else
+		return (0);
+	free(b.arr);
+	free(a.arr);
 }

@@ -22,7 +22,10 @@ void	ss(int *stack_a, int *stack_b);
 void	rra(int *stack_a, int argc);
 char	**ft_split(char const *s, char c);
 static size_t	word_count(const char *s, char delimiter);
-void	pa(int *stack_a, int size_a, int *stack_b, int size_b);
-void	pb(t_stack a, t_stack b);
+void	pa(t_stack *a, t_stack *b);
+void	pb(t_stack *a, t_stack *b);
+int		*pb_shrink_stack_a(t_stack *a, int *tmp_arr);
+int		*pb_enlarge_stack_b(t_stack *b, int tmp, int *tmp_arr);
+
 
 #endif
