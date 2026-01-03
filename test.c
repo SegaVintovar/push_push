@@ -2,6 +2,22 @@
 #include <stdio.h>
 #include "push_push_header.h"
 
+size_t	word_counter(const char *s, char delimiter)
+{
+	size_t	i;
+	size_t	wc;
+
+	i = 0;
+	wc = 0;
+	while (s[i])
+	{
+		if (s[i] != delimiter && (i == 0 || s[i - 1] == delimiter))
+			wc++;
+		i++;
+	}
+	return (wc);
+}
+
 int is_number(char *arg)
 {
 	unsigned int	i;
@@ -27,192 +43,205 @@ int is_unique(t_stack a)
 	size_t	p;
 
 	i = 0;
-	while (i < a.size)
+	p = 0;
+	while (i < a.size - 1)
 	{
 		p = i + 1;
-		while (a.arr[i] != a.arr[p] && p < a.size)// vagrind "invalid read"
+		while (a.arr[i] != a.arr[p] && p < a.size - 1)
+		{
+			if (a.arr[i] == a.arr[p])
+				return (0);
 			p++;
-		if (a.arr[i] == a.arr[p])// valgrind "invalide read"
-			return (0);
+		}
 		i++;
 	}
 	return (1);
 }
-// get the top a element. shrink stack a, enlarge stack b by 1
 
-// the passing value should have been taken before, so now we shrink src stack
-int	*push_from_src_stack(t_stack *src, int *tmp_arr)
+// malloc initial stack
+// char_stack going to contain all splited elements
+// go by argv and split every in temporary str
+// append it to stack`s str = malloc new one with a->size + wordcount
+
+void	free_chr_stack(char **chr_stack)
 {
-	size_t	i;
+	size_t p;
 
-	i = 0;
-	tmp_arr = malloc(sizeof(int) * ( src->size - 1));
-	while (i < src->size - 1)
+	p = 0;
+	while (chr_stack[p] != NULL)
 	{
-		tmp_arr[i] = src->arr[i + 1];
+		free(chr_stack[p]);
+		p++;
+	}
+	free(chr_stack);
+}
+
+char **get_stack(int argc, char **argv)
+{
+	char	**tmp;
+	char	**chr_stack;
+	int		i;
+	int		p;
+	int		s;
+	size_t	t;
+
+	t = 0;
+	i = 1;
+	p = 0;
+	while (i < argc)
+	{
+		t += word_counter(argv[i], ' ');
 		i++;
 	}
-	src->size--;
-	if (src->arr)
-		free(src->arr);
-	return (tmp_arr);
-}
-
-// takes the value that we are pushing, enlarging dest stack
-// 
-int	*enlarge_dest_stack(t_stack *dest, int tmp, int *tmp_arr)
-{
-	size_t	i;
-
-	i = 0;
-	tmp_arr = malloc((dest->size + 1) * sizeof(int));
-	if (!tmp_arr)
-		exit(1);
-	i = 0;
-	tmp_arr[i] = tmp;
-	i++;
-	while (dest->size >= i)
-	{
-		tmp_arr[i] = dest->arr[i - 1];
-		i++;
-	}
-	if (dest->arr)
-	{
-		free(dest->arr);
-		dest->arr = NULL;
-	}
-	dest->size++;
-	return (tmp_arr);
-}
-
-void	pb(t_stack *a, t_stack *b)
-{
-	int		tmp;
-	int		*tmp_arr;
-	size_t	i;
-
-	tmp_arr = NULL;
-	i = 0;
-	if (a->arr)
-	{
-		tmp = a->arr[0];
-		tmp_arr = push_from_src_stack(a, tmp_arr);
-		a->arr = tmp_arr;
-		tmp_arr = NULL;
-		b->arr = enlarge_dest_stack(b, tmp, tmp_arr);
-	}
-	else
-		return;
-	printf("pb\n");
-}
-
-void	pa(t_stack *a, t_stack *b)
-{
-	int		tmp;
-	int		*tmp_arr;
-	size_t	i;
-
-	tmp_arr = NULL;
-	i = 0;
-	if (a->arr)
-	{
-		tmp = b->arr[0];
-		tmp_arr = push_from_src_stack(b, tmp_arr);
-		a->arr = tmp_arr;
-		tmp_arr = NULL;
-		b->arr = enlarge_dest_stack(a, tmp, tmp_arr);
-	}
-	else
-		return;
-	printf("pa\n");
-}
-
-t_stack	initialisation(int argc, char **argv)
-{
-	t_stack a;
-	size_t	i;
-	char **fake_argv;
-
-	fake_argv = NULL;
-
-	a.arr = NULL;
+	chr_stack = malloc(sizeof(char *) * (t + 1));
 	i = 1;
 	while (i < argc)
 	{
-		// we are reaching each element if the argv
-		// then spliting it into new char**
-		// then we are testing those for numberness
-		
-		if (is_number(fake_argv[i]) == 0)
-			exit (1);
+		tmp = ft_split(argv[i], ' ');
+		s = 0;
+		while (tmp[s] != NULL)
+		{
+			chr_stack[p] = tmp[s];
+			p++;
+			s++;
+		}
 		i++;
+		free(tmp);
 	}
-	a.size = argc - 1;
-	a.arr = (int *)malloc(a.size * sizeof(int));
-	i = 0;
-	while (i < a.size)
-	{
-		a.arr[i] = ft_atoi(argv[i + 1]);
-		i++;
-	}
-	if (is_unique(a) == 0)
-		exit (1);
-	return (a);
+	chr_stack[p] = NULL;
+	return (chr_stack);
 }
+
+t_stack	*initialisation(int argc, char **argv)
+{
+	t_stack	*result;
+	char	**chr_stack;
+	size_t	p;
+
+	chr_stack = get_stack(argc, argv);
+	p = 0;
+	while (chr_stack[p] != NULL)
+	{
+		if (is_number(chr_stack[p]) == 0)
+		{
+			free_chr_stack(chr_stack);
+			return (NULL);
+		}
+		p++;
+	}
+	result = malloc(sizeof(t_stack));
+	if (result == NULL)
+	{
+		free_chr_stack(chr_stack);
+		free(result);
+		return (NULL);
+	}
+	result->size = p;
+	result->arr = malloc(sizeof(int) * result->size);
+	if (!result->arr)
+	{
+		free_chr_stack(chr_stack);
+		free(result);
+		return (NULL);
+	}
+	p = 0;
+	while (p < result->size)
+	{
+		result->arr[p] = ft_atoi(chr_stack[p]);
+		p++;
+	}
+	free_chr_stack(chr_stack);
+	if (is_unique(*result) == 0)
+	{
+		free(result);
+		return (NULL);
+	}
+	return (result);
+}
+
+// t_stack	pinitialisation(int argc, char **argv)
+// {
+// 	t_stack a;
+// 	size_t	i;
+// 	char **tmp;
+// 	size_t	n;
+// 	size_t	p;
+// 	char **char_stack;
+
+// 	tmp = NULL;
+
+// 	a.arr = NULL;
+// 	p = 0;
+// 	i = 1;
+// 	while (i < argc)
+// 	{
+// 		// we are reaching each element if the argv
+// 		// then spliting it into new char**
+// 		// then we are testing those for numberness
+// 		tmp = ft_split(argv[i], ' ');
+// 		char_stack = malloc(word_count(tmp, ' ') * sizeof(char *));
+// 		n = 0;
+// 		while (tmp != NULL)
+// 		{
+// 			char_stack[p] = tmp[n];
+// 			p++;
+// 			n++;
+// 		}
+// 		// check how many args did we get?
+// 		if (is_number(char_stack[p]) == 0)
+// 			exit (1);
+// 		i++;
+// 	}
+// 	a.size = argc - 1;
+// 	a.arr = (int *)malloc(a.size * sizeof(int));
+// 	i = 0;
+// 	while (i < a.size)
+// 	{
+// 		a.arr[i] = ft_atoi(argv[i + 1]);
+// 		i++;
+// 	}
+// 	if (is_unique(a) == 0)
+// 		exit (1);
+// 	return (a);
+// }
+
 
 int main(int argc, char **argv)
 {
-	t_stack	a;
-	t_stack	b;
-	size_t	i;
+	t_stack	*a;
+	t_stack	*b;
 
-	a.arr = NULL;
-	b.arr = NULL;
-	b.size = 0;
-	i = 1;
-	while (i < argc)
-	{
-		if (is_number(argv[i]) == 0)
-			return (0);
-		i++;
-	}
-	a.size = argc - 1;
-	a.arr = (int *)malloc(a.size * sizeof(int));
-	i = 0;
-	while (i < a.size)
-	{
-		a.arr[i] = ft_atoi(argv[i + 1]);
-		i++;
-	}
-	if (is_unique(a) != 0)
-	{
-		i = 0;
-		while (i < a.size)
-		{
-			printf("%d\n", a.arr[i]);
-			i++;
-		}
-		printf("Push and print both arr\n");
-		pb(&a, &b);
-		pb(&a, &b);
-		pa(&a, &b);
-		i = 0;
-		printf("t_stack a\n");
-		// while (i < a.size)
-		// {
-		// 	printf("%d\n", a.arr[i]);
-		// 	i++;
-		// }
-		i = 0;
-		printf("t_stack b\n");
-		while (i < b.size)
-		{
-			printf("%d\n", b.arr[i]);
-			i++;
-		}
-	}
-	else
-		return (0);
-	free(b.arr);
-	free(a.arr);
+	b = malloc(sizeof(t_stack));
+	b->arr = malloc(sizeof(int*));
+	b->size = 0;
+	// i = 1;
+	// while (i < argc)
+	// {
+	// 	if (is_number(argv[i]) == 0)
+	// 		return (0);
+	// 	i++;
+	// }
+	// a->size = argc - 1;
+	// a->arr = (int *)malloc(a->size * sizeof(int));
+	// i = 0;
+	// while (i < a->size)
+	// {
+	// 	a->arr[i] = ft_atoi(argv[i + 1]);
+	// 	i++;
+	// }
+	a = initialisation(argc, argv);
+	pb(a, b);
+	pb(a, b);
+	swap_b(b);
+	pa(a, b);
+	printf("t_stack a\n");
+	print_stack(a);
+	printf("t_stack b\n");
+	print_stack(b);
+	if (0 < b->size)
+		free(b->arr);
+	if (0 < a->size)
+		free(a->arr);
+	free(b);
+	free(a);
 }

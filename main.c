@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/12/13 12:49:47 by vsudak        #+#    #+#                 */
-/*   Updated: 2025/12/22 15:33:16 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/13 12:49:47 by vsudak            #+#    #+#             */
+/*   Updated: 2025/12/29 14:25:02 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 	{
 		printf("Start the program one more time and enter valid \
-numbers so I could sort them\n");
+				numbers so I could sort them\n");
 		return (0);
 	}
 	if(argc >= 2)

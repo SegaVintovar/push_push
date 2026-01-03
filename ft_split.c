@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_split.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/10/21 16:42:19 by vsudak        #+#    #+#                 */
-/*   Updated: 2025/12/23 13:42:45 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/21 16:42:19 by vsudak            #+#    #+#             */
+/*   Updated: 2025/12/31 13:44:53 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,9 @@ static size_t	rtrn_strt_of_word(const char *s, char delimiter,\
 static char	*get_word(const char *s, size_t word_nbr, char delimiter)
 {
 	size_t	i;
-	size_t	wc;
 	size_t	start;
 	char	*result;
 
-	wc = 0;
 	start = rtrn_strt_of_word(s, delimiter, word_nbr);
 	i = start;
 	while (s[i] != delimiter && s[i] != '\0')
