@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 12:45:46 by vsudak            #+#    #+#             */
-/*   Updated: 2025/12/31 13:43:36 by vs               ###   ########.fr       */
+/*   Updated: 2026/01/04 21:11:01 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,21 @@ int	*push_from_src_stack(t_stack *src, int *tmp_arr)
 	size_t	i;
 
 	i = 0;
-	tmp_arr = malloc(sizeof(int) * ( src->size - 1));
+	if (src->size > 1)
+		tmp_arr = malloc(sizeof(int) * ( src->size - 1));
 	while (i < src->size - 1)
 	{
 		tmp_arr[i] = src->arr[i + 1];
 		i++;
 	}
+	// while (i > 0)
+	// {
+	// 	free(src->arr++);
+	// 	i--;
+	// }
 	src->size--;
-	if (src->arr)
-		free(src->arr);
+	//if (src->arr)
+	free(src->arr);
 	return (tmp_arr);
 }
 

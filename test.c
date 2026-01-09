@@ -37,22 +37,20 @@ int is_number(char *arg)
 	return (1);
 }
 
-int is_unique(t_stack a)
+int is_unique(t_stack *a)
 {
 	size_t	i;
 	size_t	p;
 
 	i = 0;
 	p = 0;
-	while (i < a.size - 1)
+	while (i < a->size - 1)
 	{
 		p = i + 1;
-		while (a.arr[i] != a.arr[p] && p < a.size - 1)
-		{
-			if (a.arr[i] == a.arr[p])
-				return (0);
+		while (a->arr[i] != a->arr[p] && p < a->size - 1)
 			p++;
-		}
+		if (a->arr[i] == a->arr[p])
+			return (0);
 		i++;
 	}
 	return (1);
@@ -112,23 +110,8 @@ char **get_stack(int argc, char **argv)
 	return (chr_stack);
 }
 
-t_stack	*initialisation(int argc, char **argv)
+t_stack	*allocation(char **chr_stack, size_t p, t_stack *result)
 {
-	t_stack	*result;
-	char	**chr_stack;
-	size_t	p;
-
-	chr_stack = get_stack(argc, argv);
-	p = 0;
-	while (chr_stack[p] != NULL)
-	{
-		if (is_number(chr_stack[p]) == 0)
-		{
-			free_chr_stack(chr_stack);
-			return (NULL);
-		}
-		p++;
-	}
 	result = malloc(sizeof(t_stack));
 	if (result == NULL)
 	{
@@ -150,14 +133,58 @@ t_stack	*initialisation(int argc, char **argv)
 		result->arr[p] = ft_atoi(chr_stack[p]);
 		p++;
 	}
-	free_chr_stack(chr_stack);
-	if (is_unique(*result) == 0)
+	return (result);
+}
+
+t_stack	*initialisation(int argc, char **argv)
+{
+	t_stack	*result;
+	char	**chr_stack;
+	size_t	p;
+
+	chr_stack = get_stack(argc, argv);
+	p = 0;
+	while (chr_stack[p] != NULL)
 	{
+		if (is_number(chr_stack[p]) == 0)
+		{
+			free_chr_stack(chr_stack);
+			return (NULL);
+		}
+		p++;
+	}
+	result = allocation(chr_stack, p, result);
+	free_chr_stack(chr_stack);
+	if (is_unique(result) == 0)
+	{
+		free(result->arr);
 		free(result);
 		return (NULL);
 	}
 	return (result);
 }
+
+	// result = malloc(sizeof(t_stack));
+	// if (result == NULL)
+	// {
+	// 	free_chr_stack(chr_stack);
+	// 	free(result);
+	// 	return (NULL);
+	// }
+	// result->size = p;
+	// result->arr = malloc(sizeof(int) * result->size);
+	// if (!result->arr)
+	// {
+	// 	free_chr_stack(chr_stack);
+	// 	free(result);
+	// 	return (NULL);
+	// }
+	// p = 0;
+	// while (p < result->size)
+	// {
+	// 	result->arr[p] = ft_atoi(chr_stack[p]);
+	// 	p++;
+	// }
 
 // t_stack	pinitialisation(int argc, char **argv)
 // {
@@ -214,25 +241,18 @@ int main(int argc, char **argv)
 	b = malloc(sizeof(t_stack));
 	b->arr = malloc(sizeof(int*));
 	b->size = 0;
-	// i = 1;
-	// while (i < argc)
-	// {
-	// 	if (is_number(argv[i]) == 0)
-	// 		return (0);
-	// 	i++;
-	// }
-	// a->size = argc - 1;
-	// a->arr = (int *)malloc(a->size * sizeof(int));
-	// i = 0;
-	// while (i < a->size)
-	// {
-	// 	a->arr[i] = ft_atoi(argv[i + 1]);
-	// 	i++;
-	// }
 	a = initialisation(argc, argv);
+	if (a == NULL)
+	{
+		free(b->arr);
+		free(b);
+		return(printf("error"));
+	}
+	//alco algo
 	pb(a, b);
 	pb(a, b);
 	swap_b(b);
+	pa(a, b);
 	pa(a, b);
 	printf("t_stack a\n");
 	print_stack(a);
