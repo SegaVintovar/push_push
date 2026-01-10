@@ -12,13 +12,6 @@ typedef struct //s_stack
 	//struct s_stack *next;
 }	t_stack;
 
-typedef struct //s_stack
-{
-	char **stack;
-	int size;
-	//struct s_stack *next;
-}	t_chr_stack;
-
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *c);
 char	*ft_strdup(const char *s);
@@ -38,5 +31,7 @@ void	pb(t_stack *a, t_stack *b);
 int		*pb_shrink_stack_a(t_stack *a, int *tmp_arr);
 int		*pb_enlarge_stack_b(t_stack *b, int tmp, int *tmp_arr);
 void	print_stack(t_stack *to_print);
+void	algo(t_stack *a, t_stack *b);
+
 
 #endif
