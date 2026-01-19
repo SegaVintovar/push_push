@@ -9,6 +9,7 @@ typedef struct //s_stack
 {
 	int *arr;
 	size_t size;
+	int * seq;
 	//struct s_stack *next;
 }	t_stack;
 
@@ -30,7 +31,7 @@ void	pa(t_stack *a, t_stack *b);
 void	pb(t_stack *a, t_stack *b);
 int		*pb_shrink_stack_a(t_stack *a, int *tmp_arr);
 int		*pb_enlarge_stack_b(t_stack *b, int tmp, int *tmp_arr);
-void	print_stack(t_stack *to_print);
+void	print_stack(int *arr, size_t size);
 void	algo(t_stack *a, t_stack *b);
 
 

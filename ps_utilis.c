@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ps_utilis.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/29 18:17:06 by vs                #+#    #+#             */
-/*   Updated: 2025/12/31 13:47:03 by vs               ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ps_utilis.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: vs <vs@student.42.fr>                        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/12/29 18:17:06 by vs            #+#    #+#                 */
+/*   Updated: 2026/01/19 18:30:58 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (d);
 }
 
-void	print_stack(t_stack *to_print)
+void	print_stack(int *to_print, size_t size)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < to_print->size)
+	while (i < size)
 	{
-		printf("%d\n", to_print->arr[i]);
+		printf("%d\n", to_print[i]);
 		i++;
 	}
 }

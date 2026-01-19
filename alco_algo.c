@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   alco_algo.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: vsudak <vsudak@student.codam.nl>             +#+                     */
+/*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/10 15:07:38 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/10 18:58:01 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/19 18:57:18 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,220 @@ static int find_the_smallest_value(t_stack *any)
 	return (smallest);
 }
 
+static int	find_the_biggest_value(t_stack *any)
+{
+	int		biggest;
+	size_t	i;
+
+	i = 0;
+	biggest = any->arr[0];
+	while (i < any->size)
+	{
+		if (any->arr[i] > biggest)
+			biggest = any->arr[i];
+		i++;
+	}
+	return (biggest);
+}
+
 static void	sort_size_four(t_stack *a, t_stack *b)
 {
 	int	smallest_int_in_stack;
+	size_t smallest_index;
 
 	// get the smallest int to top and push it to b
 	smallest_int_in_stack = find_the_smallest_value(a);
+	// if (a->arr[0] > a->arr[1])
+	// 	swap_a(a);
+	// rizing the smallest to top
 	while (a->arr[0] != smallest_int_in_stack)
+	{
 		rra(a);
-	pb(a, b);
+	}
+	if (is_sorted(a) == 0)	
+		pb(a, b);
 	if (is_sorted(a) == 0)
 		sort_size_three(a);
-	pa(a, b);
+	if (b->size > 0)	
+		pa(a, b);
 }
 
+void	pop_smallest_via_rotate(t_stack *any)
+{
+	int		smallest_int_in_stack;
+	int		half_size;
+	size_t	i;
+
+	half_size = any->size / 2;
+	i = 0;
+	smallest_int_in_stack = find_the_smallest_value(any);
+	// figure out rotate or reverse rotate
+	while (smallest_int_in_stack != any->arr[i])
+		i++;
+	if (i > half_size)
+	{
+		while (any->arr[0] != smallest_int_in_stack)
+			rra(any);
+	}
+	else
+	{
+		while (any->arr[0] != smallest_int_in_stack)
+			ra(any);
+	}
+}
+
+static void	sort_size_five(t_stack *a, t_stack *b)
+{
+	int	smallest_int_in_stack;
+	int	biggest_int_in_stack;
+	
+	smallest_int_in_stack = find_the_smallest_value(a);
+	while (a->size > 3)
+	{
+		pop_smallest_via_rotate(a);
+		pb(a, b);
+	}
+	// pop_smallest_via_rotate(a);
+	// pb(a, b);
+	// pop_smallest_via_rotate(a);
+	// pb(a, b);
+	sort_size_three(a);
+	while (b->size != 0)
+		pa(a, b);
+	//pa(a, b);
+	//biggest_int_in_stack = find_the_biggest_value(a);
+}
+
+//use this to figure out indexes of sorted list
+void	simple_sort(int *a, size_t size)
+{
+	size_t	i;
+	int		tmp;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		if (a[i] > a[i + 1])
+		{
+			tmp = a[i + 1];
+			a[i + 1] = a[i];
+			a[i] = tmp;
+			i = 0;
+		}
+		else
+			i++;
+	}
+}
+
+int	*create_sorted_copy(t_stack *a)
+{
+	int		*sorted_arr;
+	size_t	i;
+
+	i = 0;
+	sorted_arr = malloc(a->size * sizeof(int));
+	while (i < a->size)
+	{
+		sorted_arr[i] = a->arr[i];
+		i++;
+	}
+	simple_sort(sorted_arr, i);
+	return (sorted_arr);
+}
+
+void	convert_into_indices(t_stack *a)
+{
+	int		*sorted_copy;
+	size_t	i;
+	size_t	p;
+
+	sorted_copy = create_sorted_copy(a);
+	i = 0;
+	while (i < a->size)
+	{
+		p = 0;
+		while (p < a->size)
+		{
+			if (a->arr[i] == sorted_copy[p])
+			{
+				a->arr[i] = p;
+				break;
+			}
+			p++;
+		}
+		i++;
+	}
+	free(sorted_copy);
+}
+
+
+
+// void	push_chunks(t_stack *a, t_stack *b)
+// {
+// 	int	chunk_size;
+// 	int	amount_of_chunks;
+
+// 	if (a->size < 10)
+// 		chunk_size = 3;
+// 	if (a->size >= 10 && a->size < 50)
+// 		chunk_size = 5;
+// 	if (a->size >= 50 && a->size < 100)
+// 		chunk_size = 7;
+// 	if (a->size >= 100)
+// 		chunk_size = 15;
+// 	amount_of_chunks = a->size / chunk_size;
+	
+// 	if (a->size)
+// }
+
+void	init_sorted_seq(t_stack *a)
+{
+	size_t	i;
+
+	i = 0;
+	a->seq = malloc(sizeof(int) * a->size);
+	while (i < a->size - 1)
+	{
+		if (a->arr[i] < a->arr[i + 1])
+			a->seq[i] = true;
+		else
+			a->seq[i] = false;
+		i++;
+	}
+	if (a->arr[i] < a->arr[0])
+	{
+		a->seq[i] = true;
+		a->seq[0] = true;
+	}
+	else
+		a->seq[i] = false;
+}
+
+void	alco_algo(t_stack *a, t_stack *b)
+{
+	convert_into_indices(a);
+	init_sorted_seq(a);
+	print_stack(a->seq, a->size);
+	size_t i = 0;
+	while (i < a->size)
+	{
+		init_sorted_seq(a);
+		if (a->seq[i] == 0)
+		{
+			pb(a, b);
+			free(a->seq);
+		}
+		i++;
+	}
+	// size_t i = 0;
+	// while (i < a->size)
+	// {
+	// 	printf("%d\n", a->seq++);
+	// 	i++;
+	// }
+		
+
+}
 void	algo(t_stack *a, t_stack *b)
 {
 	if (is_sorted(a) == 1)
@@ -79,9 +279,12 @@ void	algo(t_stack *a, t_stack *b)
 			sort_size_three(a);
 		else if (a->size == 4)
 			sort_size_four(a, b);
-		// else if (a->size == 5)
-		// 	sort_size_five(a, b);
-		// else if (a->size > 5)
-		// 	alco_algo(a, b);
+		else if (a->size == 5)
+			sort_size_five(a, b);
+		else if (a->size > 5)
+		{
+			alco_algo(a, b);
+			break;
+		}
 	}
 }

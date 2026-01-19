@@ -287,7 +287,7 @@ int main(int argc, char **argv)
 		return(printf("error"));
 	}
 	printf("t_stack a\n");
-	print_stack(a);
+	print_stack(a->arr, a->size);
 	algo(a, b);
 	// pb(a, b);
 	// pb(a, b);
@@ -295,7 +295,7 @@ int main(int argc, char **argv)
 	// pa(a, b);
 	// pa(a, b);
 	printf("t_stack a\n");
-	print_stack(a);
+	print_stack(a->arr, a->size);
 	// printf("t_stack b\n");
 	// print_stack(b);
 	free_all(a, b);
