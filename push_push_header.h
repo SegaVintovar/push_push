@@ -5,13 +5,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct //s_stack
+typedef struct
 {
 	int *arr;
 	size_t size;
-	int * seq;
-	//struct s_stack *next;
+	int *seq;
 }	t_stack;
+
+typedef struct
+{
+	int *arr;
+	size_t arr_size;
+	int *seq;
+	size_t seq_size;
+}	in_order;
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *c);
@@ -33,6 +40,8 @@ int		*pb_shrink_stack_a(t_stack *a, int *tmp_arr);
 int		*pb_enlarge_stack_b(t_stack *b, int tmp, int *tmp_arr);
 void	print_stack(int *arr, size_t size);
 void	algo(t_stack *a, t_stack *b);
+void	init_sorted_seq(t_stack *a);
+void	LIS(t_stack *a);
 
 
 #endif

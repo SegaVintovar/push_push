@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   alco_algo.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2026/01/10 15:07:38 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/19 18:57:18 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   alco_algo.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/10 15:07:38 by vsudak            #+#    #+#             */
+/*   Updated: 2026/01/20 15:00:37 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,31 +239,26 @@ void	init_sorted_seq(t_stack *a)
 	else
 		a->seq[i] = false;
 }
+void	push_a_to_the_coorect_location(t_stack *a, t_stack *b)
+{
+	// 
+}
 
 void	alco_algo(t_stack *a, t_stack *b)
 {
 	convert_into_indices(a);
-	init_sorted_seq(a);
-	print_stack(a->seq, a->size);
-	size_t i = 0;
-	while (i < a->size)
+	//init_sorted_seq(a);
+	//print_stack(a->seq, a->size);
+	while (is_sorted(a) == 0)
 	{
-		init_sorted_seq(a);
-		if (a->seq[i] == 0)
+		if (a->seq[0] == 0)
 		{
 			pb(a, b);
-			free(a->seq);
 		}
-		i++;
+		else
+			ra(a);
 	}
-	// size_t i = 0;
-	// while (i < a->size)
-	// {
-	// 	printf("%d\n", a->seq++);
-	// 	i++;
-	// }
-		
-
+	
 }
 void	algo(t_stack *a, t_stack *b)
 {

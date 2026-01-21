@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 12:45:46 by vsudak            #+#    #+#             */
-/*   Updated: 2026/01/04 21:11:01 by vs               ###   ########.fr       */
+/*   Updated: 2026/01/20 12:00:40 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,31 @@ int	*enlarge_dest_stack(t_stack *dest, int tmp)
 	return (tmp_arr);
 }
 
+void	update_seq(t_stack *a)
+{
+	size_t	i;
+	
+	if (a->seq)
+		free(a->seq);
+	i = 0;
+	a->seq = malloc(sizeof(int) * a->size);
+	while (i < a->size - 1)
+	{
+		if (a->arr[i] < a->arr[i + 1])
+			a->seq[i] = true;
+		else
+			a->seq[i] = false;
+		i++;
+	}
+	if (a->arr[i] < a->arr[0])
+	{
+		a->seq[i] = true;
+		a->seq[0] = true;
+	}
+	else
+		a->seq[i] = false;
+}
+
 void	pb(t_stack *a, t_stack *b)
 {
 	int		tmp;
@@ -105,6 +130,7 @@ void	pb(t_stack *a, t_stack *b)
 		a->arr = tmp_arr;
 		tmp_arr = NULL;
 		b->arr = enlarge_dest_stack(b, tmp);
+		update_seq(a);
 	}
 	else
 		return;

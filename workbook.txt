@@ -23,11 +23,12 @@ phase 1
 		1. always check if top element and next one are in the right order
 			if not swap.
 		2. create new arr with 0 and 1 that are representing if the other elements are in the right order
+			this arr has to be updated with every stack a operation at this phase
 		3. push b if they are not
 phase 2
 		1. cost calculation for every element in stack_b to place it in right place in stack a
 			HOW?
 				1. position in stack b (first half or second half)
 					if first then  
-		2. 
+		2. pa to the correct location
 2. if they are in the right order
