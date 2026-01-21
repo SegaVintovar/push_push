@@ -7,18 +7,20 @@
 
 typedef struct
 {
-	int *arr;
-	size_t size;
-	int *seq;
+	int		*arr;
+	size_t	size;
+	int		*keep;
+	size_t	keep_size;
+	int		*seq;
 }	t_stack;
 
-typedef struct
-{
-	int *arr;
-	size_t arr_size;
-	int *seq;
-	size_t seq_size;
-}	in_order;
+// typedef struct
+// {
+// 	int *arr;
+// 	size_t arr_size;
+// 	int *seq;
+// 	size_t seq_size;
+// }	in_order;
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *c);
@@ -42,6 +44,7 @@ void	print_stack(int *arr, size_t size);
 void	algo(t_stack *a, t_stack *b);
 void	init_sorted_seq(t_stack *a);
 void	LIS(t_stack *a);
+
 
 
 #endif

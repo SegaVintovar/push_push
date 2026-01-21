@@ -196,12 +196,12 @@ t_stack	*initialization(int argc, char **argv)
 
 void free_all(t_stack *a, t_stack *b)
 {
-	if (0 < b->size)
+	if (b->arr)
 		free(b->arr);
 	if (0 < a->size)
 	{	
 		free(a->arr);
-		free(a->seq);
+		free(a->keep);
 	}
 	free(b);
 	free(a);
@@ -226,6 +226,7 @@ int main(int argc, char **argv)
 	//print_stack(a->arr, a->size);
 	//algo(a, b);
 	LIS(a);
+
 	printf("t_stack a\n");
 	print_stack(a->arr, a->size);
 	//printf("t_stack b\n");
