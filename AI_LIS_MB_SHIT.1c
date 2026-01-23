@@ -200,7 +200,7 @@ void	LIS(t_stack *a)
 		}
 		i++;
 	}
-	printf("dp max: %zu\n", dp_max);
+	//printf("dp max: %zu\n", dp_max);
 	//return(dp_max);
 }
 
@@ -210,3 +210,121 @@ void	LIS(t_stack *a)
 // 	a->keep = malloc(LIS)()
 
 // }
+
+
+//LIS from Sem
+// Initializes and computes the Longest Increasing Subsequence (LIS).
+// Steps:
+// 1. Allocate LIS helper arrays with size == current size of stack A.
+//    - lis_len[i]  : length of the LIS ending at index i
+//    - lis_prev[i] : previous index in the LIS chain for index i
+//    - keep[i]     : marks whether stack_a[i] belongs to the LIS
+// 2. Initialize:
+//    - lis_len[i] = 1      (every element is an LIS of length 1 by itself)
+//    - lis_prev[i] = -1   (no predecessor yet)
+//    - keep[i] = 0        (nothing marked as LIS yet)
+// 3. Compute LIS dynamic programming table.
+// 4. Find the index where the LIS ends.
+// 5. Walk backwards through lis_prev[] and mark all LIS elements in keep[].
+
+void open_the_lis_eyes(t_arrays *arr, t_infoint *ints)
+{
+    int i;
+    int lis_end;
+    arr->lis_len  = malloc(sizeof(int) * ints->size_a);
+    arr->lis_prev = malloc(sizeof(int) * ints->size_a);
+    arr->keep     = malloc(sizeof(int) * ints->size_a);
+    if (!arr->lis_len || !arr->lis_prev || !arr->keep)
+    {
+        write(2, "Malloc Failure in 'open_the_lis_eyes'\n", 38);
+        exit(EXIT_FAILURE);
+    }
+    i = 0;
+    while (i < ints->size_a)
+    {
+        arr->lis_len[i] = 1;
+        arr->lis_prev[i] = -1;
+        arr->keep[i] = 0;
+        i++;
+    }
+    compute_lis(arr, ints);
+    lis_end = find_lis_end(arr, ints);
+    mark_lis(arr, lis_end);
+}
+/*
+Computes LIS lengths using O(n^2) dynamic programming.
+For each index i in stack A:
+- Look at all indices j < i
+- If stack_a[j] < stack_a[i], we can extend the LIS ending at j
+- Update lis_len[i] and lis_prev[i] if this gives a longer sequence
+*/
+void compute_lis(t_arrays *arr, t_infoint *ints)
+{
+    int i;
+    int j;
+    i = 0;
+    while (i < ints->size_a)
+    {
+        j = 0;
+        while (j < i)
+        {
+            if (arr->stack_a[j] < arr->stack_a[i]
+                && arr->lis_len[j] + 1 > arr->lis_len[i])
+            {
+                arr->lis_len[i] = arr->lis_len[j] + 1;
+                arr->lis_prev[i] = j;
+            }
+            j++;
+        }
+        i++;
+    }
+}
+/*
+Finds the index where the longest LIS ends.
+- Scans lis_len[]
+- Stores the maximum LIS length in ints->best_lis_len
+- Returns the index of that maximum
+*/
+int find_lis_end(t_arrays *arr, t_infoint *ints)
+{
+    int i;
+    int max_len;
+    int max_idx;
+    max_len = 0;
+    max_idx = 0;
+    i = 0;
+    while (i < ints->size_a)
+    {
+        if (arr->lis_len[i] > max_len)
+        {
+            max_len = arr->lis_len[i];
+            max_idx = i;
+        }
+        i++;
+    }
+    ints->best_lis_len = max_len;
+    return max_idx;
+}
+/*
+Marks all elements belonging to the LIS.
+Starting from lis_end:
+- Mark keep[lis_end] = 1
+- Move to its predecessor using lis_prev[]
+- Stop when lis_prev == -1
+If this loops infinitely, it means lis_prev[] is corrupted.
+*/
+void mark_lis(t_arrays *arr, int lis_end)
+{
+    int guard;
+    guard = 0;
+    while (lis_end != -1)
+    {
+        if (guard++ > 10000)
+        {
+            printf("INFINITE LOOP in mark_lis\n");
+            exit(1);
+        }
+        arr->keep[lis_end] = 1;
+        lis_end = arr->lis_prev[lis_end];
+    }
+}

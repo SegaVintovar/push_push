@@ -6,16 +6,16 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/29 18:17:06 by vs            #+#    #+#                 */
-/*   Updated: 2026/01/21 12:46:24 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/23 20:15:51 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_push_header.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atoi(const char *nptr)
 {
 	int	i;
-	int	nbr;
+	long	nbr;
 	int	mp;
 
 	i = 0;

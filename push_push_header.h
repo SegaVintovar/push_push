@@ -27,7 +27,7 @@ typedef struct
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *c);
 char	*ft_strdup(const char *s);
-int		ft_atoi(const char *nptr);
+long	ft_atoi(const char *nptr);
 void	swap_a(t_stack *a);
 void	swap_b(t_stack *b);
 void	ss(t_stack *a, t_stack *b);
@@ -44,9 +44,7 @@ int		*pb_shrink_stack_a(t_stack *a, int *tmp_arr);
 int		*pb_enlarge_stack_b(t_stack *b, int tmp, int *tmp_arr);
 void	print_stack(int *arr, size_t size);
 void	algo(t_stack *a, t_stack *b);
-void	init_sorted_seq(t_stack *a);
-void	LIS(t_stack *a);
-void	LIS2(t_stack *a);
+void	convert_into_indices(t_stack *a);
 
 
 

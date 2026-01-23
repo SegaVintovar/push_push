@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   alco_algo.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/10 15:07:38 by vsudak            #+#    #+#             */
-/*   Updated: 2026/01/23 11:55:18 by vs               ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   alco_algo.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: vs <vs@student.42.fr>                        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2026/01/10 15:07:38 by vsudak        #+#    #+#                 */
+/*   Updated: 2026/01/23 19:58:31 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_push_header.h"
 
-static int	is_sorted(t_stack *a)
+int	is_sorted(t_stack *a)
 {
 	size_t	i;
 
@@ -218,27 +218,73 @@ void	convert_into_indices(t_stack *a)
 // }
 
 
-void	push_a_to_the_coorect_location(t_stack *a, t_stack *b)
+// void	push_a_to_the_coorect_location(t_stack *a, t_stack *b)
+// {
+// 	// 
+// }
+
+// void	alco_algo(t_stack *a, t_stack *b)
+// {
+// 	convert_into_indices(a);
+// 	//init_sorted_seq(a);
+// 	print_stack(a->arr, a->size);
+// 	while (is_sorted(a) == 0)
+// 	{
+// 		if (a->arr[0] == 0)
+// 		{
+// 			pb(a, b);
+// 		}
+// 		else
+// 			ra(a);
+// 	}
+	
+// }
+
+int count_bits(size_t stack_size)
 {
-	// 
+	int	i;
+	int	bits_amount;
+	
+	bits_amount = 1;
+	i = 0;
+	while (i < 64)
+	{
+		if (stack_size >> i & 1)
+			bits_amount = i;
+		i++;
+	}
+	bits_amount++;
+	// bits_amount++;
+	return (bits_amount);
 }
 
-void	alco_algo(t_stack *a, t_stack *b)
+void	radix_s(t_stack *a, t_stack *b)
 {
-	convert_into_indices(a);
-	//init_sorted_seq(a);
-	//print_stack(a->seq, a->size);
-	while (is_sorted(a) == 0)
-	{
-		if (a->keep[0] == 0)
-		{
-			pb(a, b);
-		}
-		else
-			ra(a);
-	}
+	int	bits_amnt;
+	int	i;
+	size_t	p;
 	
+	i = 0;
+	bits_amnt = count_bits(a->size);
+	convert_into_indices(a);
+	while (i < bits_amnt)
+	{
+		p = a->size;
+		while (p)
+		{
+			if ((a->arr[0] >> i) & 1)
+				ra(a);
+			else
+				pb(a, b);	
+			p--;
+		}
+		while (b->size > 0)
+			pa(a, b);
+		i++;
+	}
 }
+
+
 void	algo(t_stack *a, t_stack *b)
 {
 	if (is_sorted(a) == 1)
@@ -257,7 +303,8 @@ void	algo(t_stack *a, t_stack *b)
 			sort_size_five(a, b);
 		else if (a->size > 5)
 		{
-			alco_algo(a, b);
+			radix_s(a, b);
+			//alco_algo(a, b);
 			break;
 		}
 	}
