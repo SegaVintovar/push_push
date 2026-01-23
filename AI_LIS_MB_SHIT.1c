@@ -153,8 +153,7 @@ void	LIS(t_stack *a)
 	int		t;
 	int		last;
 	int		dp_max_i;
-	int		try1;
-	int		try2;
+
 
 	i = 0;
 	t = 1;
@@ -166,19 +165,8 @@ void	LIS(t_stack *a)
 		{
 			if (last > a->arr[p])
 			{
-				try1 = a->arr[p];
-				while ((p - t) > 0 && t < 5)
-				{
-					if (a->arr[p - t] > try1 && a->arr[p - t] < last)
-					{
-						try2 = a->arr[p - t];
-						t = 1;
-						break;
-					}
-					t++;
-				}
+				last = a->arr[p];
 				a->lis[i] += 1;
-				last = try2;
 				//last = a->arr[p];
 				//lets try to check for an extra value that might be better
 				//closer to the last element of the sequence that we found before
@@ -213,6 +201,8 @@ void	LIS(t_stack *a)
 
 
 //LIS from Sem
+
+
 // Initializes and computes the Longest Increasing Subsequence (LIS).
 // Steps:
 // 1. Allocate LIS helper arrays with size == current size of stack A.
