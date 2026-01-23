@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   alco_algo.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2026/01/10 15:07:38 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/21 19:41:06 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   alco_algo.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/10 15:07:38 by vsudak            #+#    #+#             */
+/*   Updated: 2026/01/23 11:55:18 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,28 +217,7 @@ void	convert_into_indices(t_stack *a)
 // 	if (a->size)
 // }
 
-void	init_sorted_seq(t_stack *a)
-{
-	size_t	i;
 
-	i = 0;
-	a->seq = malloc(sizeof(int) * a->size);
-	while (i < a->size - 1)
-	{
-		if (a->arr[i] < a->arr[i + 1])
-			a->seq[i] = true;
-		else
-			a->seq[i] = false;
-		i++;
-	}
-	if (a->arr[i] < a->arr[0])
-	{
-		a->seq[i] = true;
-		a->seq[0] = true;
-	}
-	else
-		a->seq[i] = false;
-}
 void	push_a_to_the_coorect_location(t_stack *a, t_stack *b)
 {
 	// 

@@ -148,17 +148,16 @@ void	LIS2(t_stack *a)
 
 void	LIS(t_stack *a)
 {
-	int		dp[a->size];
 	int		i;
 	int		p;
+	int		t;
 	int		last;
 	int		dp_max_i;
+	int		try1;
+	int		try2;
 
 	i = 0;
-	while (i < a->size)
-		dp[i++] = 1;
-
-	i = 0; 
+	t = 1;
 	while (i < a->size)
 	{
 		last = a->arr[i];
@@ -167,22 +166,36 @@ void	LIS(t_stack *a)
 		{
 			if (last > a->arr[p])
 			{
-				dp[i] += 1;
-				last = a->arr[p];
+				try1 = a->arr[p];
+				while ((p - t) > 0 && t < 5)
+				{
+					if (a->arr[p - t] > try1 && a->arr[p - t] < last)
+					{
+						try2 = a->arr[p - t];
+						t = 1;
+						break;
+					}
+					t++;
+				}
+				a->lis[i] += 1;
+				last = try2;
+				//last = a->arr[p];
+				//lets try to check for an extra value that might be better
+				//closer to the last element of the sequence that we found before
 			}
 			p--;
 		}
 		i++;
 	}
 
-	print_stack(dp, a->size);
-	size_t	dp_max = 0;
+	print_stack(a->lis, a->size);
+	size_t	ls_max = 0;
 	i = 0;
 	while (i < a->size)
 	{
-		if (dp[i] > dp_max)
+		if (a->lis[i] > ls_max)
 		{
-			dp_max = dp[i];
+			ls_max = a->lis[i];
 			dp_max_i = i;
 		}
 		i++;

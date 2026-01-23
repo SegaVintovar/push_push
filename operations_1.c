@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   operations_1.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/12/13 12:41:08 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/21 19:41:46 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   operations_1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/13 12:41:08 by vsudak            #+#    #+#             */
+/*   Updated: 2026/01/23 11:56:13 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,6 @@ void	ss(t_stack *a, t_stack *b)
 	printf("ss\n");
 }
 
-void	r_seq(t_stack *a)
-{
-	int		tmp;
-	size_t	count;
-
-	count = 0;
-	tmp = a->seq[0];
-	while (a->size - 1 > count)
-	{
-		a->seq[count] = a->seq[count + 1];
-		count++;
-	}
-	a->seq[a->size - 1] = tmp;
-}
 
 void	ra(t_stack *a)
 {
@@ -94,24 +80,6 @@ void	rb(t_stack *b)
 	printf("rb\n");
 }
 
-void	rr_seq(t_stack *a)
-{
-	int		tmp;
-	size_t	count;
-	
-	count = 0;
-	if (a->size > 0)
-	{
-		tmp = a->seq[a->size - 1];
-		while (count < a->size - 1)
-		{
-			a->seq[a->size - count - 1] = a->seq[a->size - count - 2];
-			count++;
-		}
-		a->seq[0] = tmp;
-	}
-}
-
 void	rra(t_stack *a)
 {
 	int tmp;
@@ -128,7 +96,7 @@ void	rra(t_stack *a)
 		}
 		a->arr[0] = tmp;
 		//rr_seq(a);
-		printf("second_rra\n");
+		printf("rra\n");
 	}
 }
 

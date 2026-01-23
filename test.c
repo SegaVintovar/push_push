@@ -165,6 +165,16 @@ t_stack	*allocation(char **chr_stack, size_t p, t_stack *result)
 	return (result);
 }
 
+void	init_lis(t_stack *a)
+{
+	size_t	i;
+
+	a->lis = malloc(sizeof(int) * a->size);
+	i = 0;
+	while (i < a->size)
+		a->lis[i++] = 1;
+}
+
 t_stack	*initialization(int argc, char **argv)
 {
 	t_stack	*result;
@@ -190,7 +200,7 @@ t_stack	*initialization(int argc, char **argv)
 		free(result);
 		return (NULL);
 	}
-	init_sorted_seq(result);
+	init_lis(result);
 	return (result);
 }
 
@@ -202,6 +212,7 @@ void free_all(t_stack *a, t_stack *b)
 	{	
 		free(a->arr);
 		free(a->keep);
+		free(a->lis);
 	}
 	free(b);
 	free(a);
@@ -228,7 +239,7 @@ int main(int argc, char **argv)
 	LIS(a);
 
 	printf("t_stack a\n");
-	print_stack(a->arr, a->size);
+	//print_stack(a->arr, a->size);
 	//printf("t_stack b\n");
 	//print_stack(b->arr, b->size);
 

@@ -9,9 +9,11 @@ typedef struct
 {
 	int		*arr;
 	size_t	size;
-	int		*keep;
+	int		*lis;
+	// LIS result, size is the same as stack_arr size, I need to calloc it
 	size_t	keep_size;
-	int		*seq;
+	int		*keep;
+	//the values that we want ot keep in stack_a
 }	t_stack;
 
 // typedef struct
@@ -44,6 +46,7 @@ void	print_stack(int *arr, size_t size);
 void	algo(t_stack *a, t_stack *b);
 void	init_sorted_seq(t_stack *a);
 void	LIS(t_stack *a);
+void	LIS2(t_stack *a);
 
 
 

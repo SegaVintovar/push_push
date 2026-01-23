@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   operations_3.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/12/13 12:45:46 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/21 19:42:04 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   operations_3.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/13 12:45:46 by vsudak            #+#    #+#             */
+/*   Updated: 2026/01/23 11:56:53 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,31 +92,6 @@ int	*enlarge_dest_stack(t_stack *dest, int tmp)
 	return (tmp_arr);
 }
 
-void	update_seq(t_stack *a)
-{
-	size_t	i;
-	
-	if (a->seq)
-		free(a->seq);
-	i = 0;
-	a->seq = malloc(sizeof(int) * a->size);
-	while (i < a->size - 1)
-	{
-		if (a->arr[i] < a->arr[i + 1])
-			a->seq[i] = true;
-		else
-			a->seq[i] = false;
-		i++;
-	}
-	if (a->arr[i] < a->arr[0])
-	{
-		a->seq[i] = true;
-		a->seq[0] = true;
-	}
-	else
-		a->seq[i] = false;
-}
-
 void	pb(t_stack *a, t_stack *b)
 {
 	int		tmp;
@@ -129,9 +104,7 @@ void	pb(t_stack *a, t_stack *b)
 		tmp_arr = push_from_src_stack(a, tmp_arr);
 		a->arr = tmp_arr;
 		tmp_arr = NULL;
-		b->arr = enlarge_dest_stack(b, tmp);
-		update_seq(a);
-	}
+		b->arr = enlarge_dest_stack(b, tmp);	}
 	else
 		return;
 	printf("pb\n");
