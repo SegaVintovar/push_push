@@ -10,11 +10,11 @@ typedef struct
 {
 	int		*arr;
 	size_t	size;
-	int		*lis;
+	//int		*lis;
 	// LIS result, size is the same as stack_arr size, I need to calloc it
-	size_t	keep_size;
-	int		*keep;
-	//the values that we want ot keep in stack_a
+	//size_t	keep_size;
+	//int		*keep;
+	///the values that we want ot keep in stack_a
 }	t_stack;
 
 // typedef struct
@@ -49,6 +49,7 @@ void	algo(t_stack *a, t_stack *b);
 void	radix_s(t_stack *a, t_stack *b);
 char	**get_stack(int argc, char **argv);
 t_stack	*initialization(int argc, char **argv);
+void	exit_and_free_all(t_stack *a, t_stack *b);
 
 
 #endif

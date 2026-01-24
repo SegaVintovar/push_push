@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/13 12:45:46 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/24 14:53:00 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/24 19:52:17 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,17 @@ void	rrr(t_stack *a, t_stack *b)
 	write(1, "rrr\n", 5);
 }
 
-static int	*push_from_src_stack(t_stack *src, int *tmp_arr)
+static int	*push_from_src_stack(t_stack *src, int *tmp_arr, t_stack *dest)
 {
 	size_t	i;
 
 	i = 0;
 	if (src->size > 1)
+	{
 		tmp_arr = malloc(sizeof(int) * ( src->size - 1));
+		if (!tmp_arr)
+		 	exit_and_free_all(src, dest);
+	}
 	while (i < src->size - 1)
 	{
 		tmp_arr[i] = src->arr[i + 1];
@@ -55,19 +59,20 @@ static int	*push_from_src_stack(t_stack *src, int *tmp_arr)
 	}
 	src->size--;
 	free(src->arr);
+	//src->arr = NULL;
 	return (tmp_arr);
 }
 
 // takes the value that we are pushing, enlarging dest stack
-static int	*enlarge_dest_stack(t_stack *dest, int tmp)
+static int	*enlarge_dest_stack(t_stack *dest, int tmp, t_stack *src)
 {
 	size_t	i;
-	int	*tmp_arr;
+	int		*tmp_arr;
 
 	i = 0;
 	tmp_arr = malloc((dest->size + 1) * sizeof(int));
 	if (!tmp_arr)
-		exit(1);
+		exit_and_free_all(dest, src);
 	i = 0;
 	tmp_arr[i] = tmp;
 	i++;
@@ -91,16 +96,26 @@ void	pb(t_stack *a, t_stack *b)
 	int		*tmp_arr;
 	
 	tmp_arr = NULL;
-	if (a->arr)
-	{
+	// if (a->arr)
+	// {
 		tmp = a->arr[0];
-		tmp_arr = push_from_src_stack(a, tmp_arr);
+		tmp_arr = push_from_src_stack(a, tmp_arr, b);
+		if (!tmp_arr)
+		{
+			write(1, "1\n", 3);
+			exit_and_free_all(a,b);
+		}
 		a->arr = tmp_arr;
 		tmp_arr = NULL;
-		b->arr = enlarge_dest_stack(b, tmp);
-	}
-	else
-		return;
+		b->arr = enlarge_dest_stack(b, tmp, a);
+		if (!b->arr)
+		{
+			write(1, "2\n", 3);
+			exit_and_free_all(a, b);
+		}	
+	// }
+	// else
+	// 	return;
 	write(1, "pb\n", 4);
 }
 
@@ -113,10 +128,17 @@ void	pa(t_stack *a, t_stack *b)
 	if (b->arr)
 	{
 		tmp = b->arr[0];
-		tmp_arr = push_from_src_stack(b, tmp_arr);
+		tmp_arr = push_from_src_stack(b, tmp_arr, a);
+		// if (!tmp_arr)
+		// {
+		// 	write(1, "here?\n", 7);
+		// 	exit_and_free_all(a,b);	
+		// }
 		b->arr = tmp_arr;
 		tmp_arr = NULL;
-		a->arr = enlarge_dest_stack(a, tmp);
+		a->arr = enlarge_dest_stack(a, tmp, b);
+		if (!a->arr)
+			exit_and_free_all(a,b);
 	}
 	else
 		return;
