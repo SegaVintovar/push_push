@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 typedef struct
 {
@@ -40,12 +41,14 @@ void	rrr(t_stack *a, t_stack *b);
 char	**ft_split(char const *s, char c);
 void	pa(t_stack *a, t_stack *b);
 void	pb(t_stack *a, t_stack *b);
-int		*pb_shrink_stack_a(t_stack *a, int *tmp_arr);
-int		*pb_enlarge_stack_b(t_stack *b, int tmp, int *tmp_arr);
+// int		*pb_shrink_stack_a(t_stack *a, int *tmp_arr);
+// int		*pb_enlarge_stack_b(t_stack *b, int tmp, int *tmp_arr);
 void	print_stack(int *arr, size_t size);
 void	algo(t_stack *a, t_stack *b);
-void	convert_into_indices(t_stack *a);
-
+//static void	convert_into_indices(t_stack *a);
+void	radix_s(t_stack *a, t_stack *b);
+char	**get_stack(int argc, char **argv);
+t_stack	*initialization(int argc, char **argv);
 
 
 #endif

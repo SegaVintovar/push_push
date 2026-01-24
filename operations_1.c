@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   operations_1.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/13 12:41:08 by vsudak            #+#    #+#             */
-/*   Updated: 2026/01/24 13:38:32 by vs               ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   operations_1.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: vs <vs@student.42.fr>                        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/12/13 12:41:08 by vsudak        #+#    #+#                 */
+/*   Updated: 2026/01/24 14:54:17 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,23 @@
 
 void	swap_a(t_stack *a)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = a->arr[0];
 	a->arr[0] = a->arr[1];
 	a->arr[1] = tmp;
-
-	printf("sa\n");
+	write(1, "sa\n", 4);
 }
 
 void	swap_b(t_stack *b)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = b->arr[0];
 	b->arr[0] = b->arr[1];
 	b->arr[1] = tmp;
-	write(1, "sb\n", 4)
-	//printf("sb\n");
+	write(1, "sb\n", 4);
 }
-
-void	ss(t_stack *a, t_stack *b)
-{
-	int tmp;
-
-	tmp = a->arr[0];
-	a->arr[0] = a->arr[1];
-	a->arr[1] = tmp;
-	tmp = b->arr[0];
-	b->arr[0] = b->arr[1];
-	b->arr[1] = tmp;
-	write(1, "ss\n", 4);
-	//printf("ss\n");
-}
-
 
 void	ra(t_stack *a)
 {
@@ -62,9 +45,7 @@ void	ra(t_stack *a)
 		count++;
 	}
 	a->arr[a->size - 1] = tmp;
-	//r_seq(a);
 	write(1, "ra\n", 4);
-	//printf("ra\n");
 }
 
 void	rb(t_stack *b)
@@ -81,13 +62,12 @@ void	rb(t_stack *b)
 	}
 	b->arr[b->size - 1] = tmp;
 	write(1, "rb\n", 4);
-	//printf("rb\n");
 }
 
 void	rra(t_stack *a)
 {
-	int tmp;
-	size_t count;
+	int		tmp;
+	size_t	count;
 	
 	count = 0;
 	if (a->size > 0)
@@ -99,56 +79,7 @@ void	rra(t_stack *a)
 			count++;
 		}
 		a->arr[0] = tmp;
-		//rr_seq(a);
 		write(1, "rra\n", 5);
-		//printf("rra\n");
 	}
 }
-
-// rra with malloc = I'll leave it here
-// void	rra(t_stack *a)
-// {
-// 	int *tmp_stack;
-// 	int p;
-
-// 	if (a->size > 0)
-// 	{
-// 		p = 0;
-// 		tmp_stack = malloc(a->size * sizeof(int));
-// 		tmp_stack[p] = a->arr[a->size - 1];
-// 		p++;
-// 		while(p < a->size)
-// 		{
-// 			tmp_stack[p] = a->arr[p - 1];
-// 			p++;
-// 		}
-// 		free(a->arr);
-// 		a->arr = NULL;
-// 		a->arr = tmp_stack;
-// 		tmp_stack = NULL;
-// 		printf("rra\n");
-// 	}
-// }
-
-
-
-// int main()
-// {
-// 	t_stack *a;
-// 	a = malloc(sizeof(t_stack));
-// 	a->size = 4;
-// 	a->arr = malloc(sizeof(int) * a->size);
-// 	a->arr[0] = 1;
-// 	a->arr[1] = 2;
-// 	a->arr[2] = 3;
-// 	a->arr[3] = 4;
-
-// 	ra(a);
-
-// 	printf("t_stack a\n");
-
-// 	print_stack(a);
-// 	free(a->arr);
-// 	free(a);
-// }
 

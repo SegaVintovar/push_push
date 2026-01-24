@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   operations_3.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/13 12:45:46 by vsudak            #+#    #+#             */
-/*   Updated: 2026/01/23 11:56:53 by vs               ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   operations_3.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: vs <vs@student.42.fr>                        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/12/13 12:45:46 by vsudak        #+#    #+#                 */
+/*   Updated: 2026/01/24 14:53:00 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	rrr(t_stack *a, t_stack *b)
 		}
 		b->arr[0] = tmp;
 	}
-	printf("rrr\n");
+	write(1, "rrr\n", 5);
 }
 
-int	*push_from_src_stack(t_stack *src, int *tmp_arr)
+static int	*push_from_src_stack(t_stack *src, int *tmp_arr)
 {
 	size_t	i;
 
@@ -53,20 +53,13 @@ int	*push_from_src_stack(t_stack *src, int *tmp_arr)
 		tmp_arr[i] = src->arr[i + 1];
 		i++;
 	}
-	// while (i > 0)
-	// {
-	// 	free(src->arr++);
-	// 	i--;
-	// }
 	src->size--;
-	//if (src->arr)
 	free(src->arr);
 	return (tmp_arr);
 }
 
 // takes the value that we are pushing, enlarging dest stack
-// 
-int	*enlarge_dest_stack(t_stack *dest, int tmp)
+static int	*enlarge_dest_stack(t_stack *dest, int tmp)
 {
 	size_t	i;
 	int	*tmp_arr;
@@ -104,10 +97,11 @@ void	pb(t_stack *a, t_stack *b)
 		tmp_arr = push_from_src_stack(a, tmp_arr);
 		a->arr = tmp_arr;
 		tmp_arr = NULL;
-		b->arr = enlarge_dest_stack(b, tmp);	}
+		b->arr = enlarge_dest_stack(b, tmp);
+	}
 	else
 		return;
-	printf("pb\n");
+	write(1, "pb\n", 4);
 }
 
 void	pa(t_stack *a, t_stack *b)
@@ -126,5 +120,5 @@ void	pa(t_stack *a, t_stack *b)
 	}
 	else
 		return;
-	printf("pa\n");
+	write(1, "pa\n", 4);
 }
