@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/13 12:41:08 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/24 14:54:17 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/25 19:15:41 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	swap_a(t_stack *a)
 	tmp = a->arr[0];
 	a->arr[0] = a->arr[1];
 	a->arr[1] = tmp;
-	write(1, "sa\n", 4);
+	write(1, "sa\n", 3);
 }
 
 void	swap_b(t_stack *b)
@@ -29,7 +29,7 @@ void	swap_b(t_stack *b)
 	tmp = b->arr[0];
 	b->arr[0] = b->arr[1];
 	b->arr[1] = tmp;
-	write(1, "sb\n", 4);
+	write(1, "sb\n", 3);
 }
 
 void	ra(t_stack *a)
@@ -45,7 +45,7 @@ void	ra(t_stack *a)
 		count++;
 	}
 	a->arr[a->size - 1] = tmp;
-	write(1, "ra\n", 4);
+	write(1, "ra\n", 3);
 }
 
 void	rb(t_stack *b)
@@ -61,14 +61,14 @@ void	rb(t_stack *b)
 		count++;
 	}
 	b->arr[b->size - 1] = tmp;
-	write(1, "rb\n", 4);
+	write(1, "rb\n", 3);
 }
 
 void	rra(t_stack *a)
 {
 	int		tmp;
 	size_t	count;
-	
+
 	count = 0;
 	if (a->size > 0)
 	{
@@ -79,7 +79,6 @@ void	rra(t_stack *a)
 			count++;
 		}
 		a->arr[0] = tmp;
-		write(1, "rra\n", 5);
+		write(1, "rra\n", 4);
 	}
 }
-

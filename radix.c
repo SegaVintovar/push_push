@@ -6,7 +6,7 @@
 /*   By: vsudak <vsudak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/24 13:45:06 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/24 17:39:50 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/25 19:17:32 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	*create_sorted_copy(t_stack *a)
 
 	i = 0;
 	sorted_arr = malloc(a->size * sizeof(int));
+	if (!sorted_arr)
+		return (NULL);
 	while (i < a->size)
 	{
 		sorted_arr[i] = a->arr[i];
@@ -56,6 +58,8 @@ static void	convert_into_indices(t_stack *a)
 	size_t	p;
 
 	sorted_copy = create_sorted_copy(a);
+	if (!sorted_copy)
+		exit_and_free_all(a, NULL);
 	i = 0;
 	while (i < a->size)
 	{
@@ -65,7 +69,7 @@ static void	convert_into_indices(t_stack *a)
 			if (a->arr[i] == sorted_copy[p])
 			{
 				a->arr[i] = p;
-				break;
+				break ;
 			}
 			p++;
 		}
@@ -78,7 +82,7 @@ static int	count_bits(size_t stack_size)
 {
 	int	i;
 	int	bits_amount;
-	
+
 	bits_amount = 1;
 	i = 0;
 	while (i < 64)
@@ -96,7 +100,7 @@ void	radix_s(t_stack *a, t_stack *b)
 	int		bits_amnt;
 	int		i;
 	size_t	p;
-	
+
 	i = 0;
 	bits_amnt = count_bits(a->size);
 	convert_into_indices(a);
@@ -108,7 +112,7 @@ void	radix_s(t_stack *a, t_stack *b)
 			if ((a->arr[0] >> i) & 1)
 				ra(a);
 			else
-				pb(a, b);	
+				pb(a, b);
 			p--;
 		}
 		while (b->size > 0)

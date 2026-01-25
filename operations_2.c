@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/13 12:41:56 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/24 14:53:12 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/25 19:03:37 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ void	rr(t_stack *a, t_stack *b)
 		count++;
 	}
 	b->arr[b->size - 1] = tmp;
-	write(1, "rr\n", 4);
+	write(1, "rr\n", 3);
 }
-
 
 void	rrb(t_stack *b)
 {
 	int		tmp;
 	size_t	count;
-	
+
 	count = 0;
 	if (b->size > 0)
 	{
@@ -52,13 +51,13 @@ void	rrb(t_stack *b)
 			count++;
 		}
 		b->arr[0] = tmp;
-		write(1, "rrb\n", 5);
+		write(1, "rrb\n", 4);
 	}
 }
 
 void	ss(t_stack *a, t_stack *b)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = a->arr[0];
 	a->arr[0] = a->arr[1];
@@ -66,5 +65,5 @@ void	ss(t_stack *a, t_stack *b)
 	tmp = b->arr[0];
 	b->arr[0] = b->arr[1];
 	b->arr[1] = tmp;
-	write(1, "ss\n", 4);
+	write(1, "ss\n", 3);
 }

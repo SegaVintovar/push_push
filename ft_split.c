@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/21 16:42:19 by vsudak            #+#    #+#             */
-/*   Updated: 2025/12/31 13:44:53 by vs               ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_split.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: vs <vs@student.42.fr>                        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/10/21 16:42:19 by vsudak        #+#    #+#                 */
+/*   Updated: 2026/01/25 19:02:46 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,25 +97,3 @@ char	**ft_split(char const *s, char c)
 	result[i] = NULL;
 	return (result);
 }
-// int main(int argc, char **argv)
-// {
-// 	char y = ' ';
-// 	size_t i = 1;
-// 	size_t j;
-// 	char **arr;
-// 	while (i < argc)
-// 	{
-// 		arr = ft_split(argv[i], y);
-// 		i++;
-// 	}
-	
-// 	//amount of words in the array(amount of arrays i need)
-// 	j = word_count(src, y);
-// 	while(i <= j)
-// 	{
-// 		printf("%s\n", arr[i]);
-// 		i++;
-// 	}
-// 	free(arr);
-// 	//printf("%s\n", ft_split(src, y));
-// }

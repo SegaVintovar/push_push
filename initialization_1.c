@@ -6,7 +6,7 @@
 /*   By: vsudak <vsudak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/24 14:03:03 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/24 14:34:48 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/25 19:43:50 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	free_chr_stack(char **chr_stack)
 {
-	size_t p;
+	size_t	p;
 
 	p = 0;
 	while (chr_stack[p] != NULL)
@@ -28,7 +28,7 @@ static void	free_chr_stack(char **chr_stack)
 int	is_number(char *arg)
 {
 	unsigned int	i;
-	
+
 	i = 0;
 	while (arg[i] == ' ' || (arg[i] >= 9 && arg[i] <= 13))
 		i++;
@@ -44,48 +44,41 @@ int	is_number(char *arg)
 	return (1);
 }
 
-int	is_unique(t_stack *a)
+void	free_t_stack(t_stack *to_free)
 {
-	size_t	i;
-	size_t	p;
-
-	i = 0;
-	p = 0;
-	while (i < a->size - 1)
+	if (to_free)
 	{
-		p = i + 1;
-		while (a->arr[i] != a->arr[p] && p < a->size - 1)
-			p++;
-		if (a->arr[i] == a->arr[p])
-			return (0);
-		i++;
+		if (to_free->arr)
+			free(to_free->arr);
+		free(to_free);
 	}
-	return (1);
 }
 
 static t_stack	*allocation(char **chr_stack, size_t p, t_stack *result)
 {
+	long	tmp;
+
 	result = malloc(sizeof(t_stack));
 	if (result == NULL)
-	{
-		free_chr_stack(chr_stack);
-		free(result);
 		return (NULL);
-	}
 	result->size = p;
 	result->arr = malloc(sizeof(int) * result->size);
 	if (!result->arr)
-	{
-		free_chr_stack(chr_stack);
-		free(result);
-		return (NULL);
-	}
+		return (free(result), NULL);
 	p = 0;
 	while (p < result->size)
 	{
-		result->arr[p] = ft_atoi(chr_stack[p]);
+		tmp = ft_atoi(chr_stack[p]);
+		if (tmp > INT_MAX || tmp < INT_MIN)
+		{
+			free_chr_stack(chr_stack);
+			free_t_stack(result);
+			return (NULL);
+		}
+		result->arr[p] = (int)tmp;
 		p++;
 	}
+	free_chr_stack(chr_stack);
 	return (result);
 }
 
@@ -97,6 +90,8 @@ t_stack	*initialization(int argc, char **argv)
 
 	result = NULL;
 	chr_stack = get_stack(argc, argv);
+	if (!chr_stack)
+		return (NULL);
 	p = 0;
 	while (chr_stack[p] != NULL)
 	{
@@ -108,11 +103,9 @@ t_stack	*initialization(int argc, char **argv)
 		p++;
 	}
 	result = allocation(chr_stack, p, result);
-	free_chr_stack(chr_stack);
-	if (is_unique(result) == 0)
+	if (!result || is_unique_int(result) == 0)
 	{
-		free(result->arr);
-		free(result);
+		free_t_stack(result);
 		return (NULL);
 	}
 	return (result);

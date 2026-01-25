@@ -6,7 +6,7 @@
 /*   By: vsudak <vsudak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/24 14:27:42 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/24 14:43:54 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/25 18:03:18 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static size_t	word_counter(const char *s, char delimiter)
 	return (wc);
 }
 
-static void	split_every_arg(int argc, char **argv, char **chr_stack)
+// mb make it return char** ???, to track the fail?
+static char	**split_every_arg(int argc, char **argv, char **chr_stack)
 {
 	char	**tmp;
 	int		i;
@@ -40,8 +41,10 @@ static void	split_every_arg(int argc, char **argv, char **chr_stack)
 	while (i < argc)
 	{
 		tmp = ft_split(argv[i], ' ');
+		if (!tmp)
+			return (NULL);
 		s = 0;
-		while (tmp[s] != NULL)
+		while (tmp && tmp[s] != NULL)
 		{
 			chr_stack[p] = tmp[s];
 			p++;
@@ -51,6 +54,7 @@ static void	split_every_arg(int argc, char **argv, char **chr_stack)
 		free(tmp);
 	}
 	chr_stack[p] = NULL;
+	return (chr_stack);
 }
 
 char	**get_stack(int argc, char **argv)
@@ -67,7 +71,8 @@ char	**get_stack(int argc, char **argv)
 		i++;
 	}
 	chr_stack = malloc(sizeof(char *) * (t + 1));
-	//secure the malloc
-	split_every_arg(argc, argv, chr_stack);
+	if (!chr_stack)
+		return (NULL);
+	chr_stack = split_every_arg(argc, argv, chr_stack);
 	return (chr_stack);
 }
