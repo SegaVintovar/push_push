@@ -6,7 +6,7 @@
 #    By: vsudak <vsudak@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2026/01/25 18:27:28 by vsudak        #+#    #+#                  #
-#    Updated: 2026/01/25 18:45:08 by vsudak        ########   odam.nl          #
+#    Updated: 2026/01/25 20:11:30 by vsudak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ = $(SRC:.c=.o)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $^
+	$(CC) $(CFLAGS) $^ -o $@
 
 all: $(NAME)
 
