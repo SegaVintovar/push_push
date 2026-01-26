@@ -6,7 +6,7 @@
 /*   By: vsudak <vsudak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/24 14:03:03 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/25 19:43:50 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/26 18:09:04 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	free_chr_stack(char **chr_stack)
 
 int	is_number(char *arg)
 {
-	unsigned int	i;
+	size_t	i;
 
 	i = 0;
 	while (arg[i] == ' ' || (arg[i] >= 9 && arg[i] <= 13))
@@ -54,6 +54,8 @@ void	free_t_stack(t_stack *to_free)
 	}
 }
 
+// to handle int overflow, atoi always returns the long which is always in
+// long limits
 static t_stack	*allocation(char **chr_stack, size_t p, t_stack *result)
 {
 	long	tmp;

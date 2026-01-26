@@ -6,12 +6,15 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/29 18:17:06 by vs            #+#    #+#                 */
-/*   Updated: 2026/01/25 19:03:58 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/26 18:04:10 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_push_header.h"
 
+// to handle the int overflow i ll stop conversion as soon as my long nbr
+// going to be bigger then INT_MAX, so the return woudl be
+// in the long - int range
 long	ft_atoi(const char *nptr)
 {
 	int		i;
@@ -32,6 +35,8 @@ long	ft_atoi(const char *nptr)
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		nbr = nbr * 10 +(nptr[i] - '0');
+		if (nbr > INT_MAX)
+			break ;
 		i++;
 	}
 	return (nbr * mp);

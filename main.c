@@ -6,7 +6,7 @@
 /*   By: vsudak <vsudak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/25 19:25:27 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/25 19:33:19 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/26 18:09:22 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, char **argv)
 		free_all(a, b);
 	}
 }
-//#inlcude <stdio.h>
+// #include <stdio.h>
 // void	print_stack(int *to_print, size_t size)
 // {
 // 	size_t	i;

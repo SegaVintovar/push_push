@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                        +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/10 15:07:38 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/25 19:24:09 by vsudak        ########   odam.nl         */
+/*   Updated: 2026/01/26 18:09:41 by vsudak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 static void	sort_size_three(t_stack *a)
 {
 	if (a->arr[0] > a->arr[1])
+	{
+		if (a->arr[0] > a->arr[2])
+		{
+			ra(a);
+			return ;
+		}
 		swap_a(a);
+	}
 	if (is_sorted(a) == 0)
 		rra(a);
 }
@@ -62,14 +69,10 @@ void	pop_smallest_via_rotate(t_stack *any)
 
 static void	sort_size_five(t_stack *a, t_stack *b)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < 2)
+	while (a->size > 3)
 	{
 		pop_smallest_via_rotate(a);
 		pb(a, b);
-		i++;
 	}
 	sort_size_three(a);
 	while (b->size != 0)
@@ -80,7 +83,7 @@ void	algo(t_stack *a, t_stack *b)
 {
 	if (is_sorted(a) == 1)
 		return ;
-	while (is_sorted(a) == 0)
+	else
 	{
 		if (a->size == 1)
 			return ;
