@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   operations_3.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: vs <vs@student.42.fr>                        +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/12/13 12:45:46 by vsudak        #+#    #+#                 */
-/*   Updated: 2026/01/25 19:05:47 by vsudak        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   operations_3.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/13 12:45:46 by vsudak            #+#    #+#             */
+/*   Updated: 2026/01/26 10:27:37 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ void	pb(t_stack *a, t_stack *b)
 	tmp_arr = NULL;
 	tmp = a->arr[0];
 	tmp_arr = push_from_src_stack(a, tmp_arr);
-	if (!tmp_arr)
+	if (!tmp_arr && a->size > 0)
 		exit_and_free_all(a, b);
 	a->arr = tmp_arr;
 	tmp_arr = NULL;
 	b->arr = enlarge_dest_stack(b, tmp);
-	if (!b->arr)
+	if (!b->arr && b->size > 0)
 		exit_and_free_all(a, b);
 	write(1, "pb\n", 3);
 }
