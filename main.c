@@ -6,7 +6,7 @@
 /*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:25:27 by vsudak            #+#    #+#             */
-/*   Updated: 2026/01/28 11:52:52 by vs               ###   ########.fr       */
+/*   Updated: 2026/01/28 12:28:35 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ t_stack	*bstack_allocation(t_stack *a)
 	return (b);
 }
 
-// $(shuf -i 1-100 -n 100)
+// use this command to make input
+// ARG=$(shuf -i 1-100 -n 100 | tr '\n' ' ')
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
@@ -64,18 +65,6 @@ int	main(int argc, char **argv)
 		if (a->size > 3)
 			b = bstack_allocation(a);
 		algo(a, b);
-		//print_stack(a->arr, a->size);
 		free_all(a, b);
 	}
 }
-// #include <stdio.h>
-// void	print_stack(int *to_print, size_t size)
-// {
-// 	size_t	i;
-// 	i = 0;
-// 	while (i < size)
-// 	{
-// 		printf("%d\n", to_print[i]);
-// 		i++;
-// 	}
-// }

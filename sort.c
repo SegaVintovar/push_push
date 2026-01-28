@@ -6,39 +6,15 @@
 /*   By: vs <vs@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 15:07:38 by vsudak            #+#    #+#             */
-/*   Updated: 2026/01/28 11:47:34 by vs               ###   ########.fr       */
+/*   Updated: 2026/01/28 12:30:06 by vs               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_push_header.h"
 
-// static void	sort_size_three(t_stack *a)
-// {
-// 	if (a->arr[0] > a->arr[1])
-// 	{
-// 		if (a->arr[0] > a->arr[2])
-// 		{
-// 			ra(a);
-// 			swap_a(a);
-// 			if (is_sorted(a) == 1)
-// 				return ;
-// 		}
-// 		swap_a(a);
-// 		if (is_sorted(a) == 1)
-// 			return ;
-// 	}
-// 	if (is_sorted(a) == 0)
-// 		rra(a);
-// }
-
-// 1 3 2	sa + ra
-// 2 1 3	sa
-// 2 3 1	rra
-// 3 1 2	ra
-// 3 2 1	sa + rra
 static void	sort_size_three(t_stack *a)
 {
-	if (a->arr[0] < a->arr[1] && a->arr[1] > a->arr[2])
+	if (a->arr[0] < a->arr[1] && a->arr[0] < a->arr[2])
 		return (swap_a(a), ra(a));
 	if ((a->arr[0] > a->arr[1]) && a->arr[0] < a->arr[2])
 		return (swap_a(a));
@@ -49,7 +25,6 @@ static void	sort_size_three(t_stack *a)
 	if (a->arr[0] > a->arr[1] && a->arr[1] > a->arr[2])
 		return (swap_a(a), rra(a));
 }
-
 
 static void	sort_size_four(t_stack *a, t_stack *b)
 {
